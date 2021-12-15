@@ -4,10 +4,10 @@ var express = require('express');
 
 var bodyParser = require('body-parser');
 
-var mongoose = require('mongoose'); // Import models
+var mongoose = require('mongoose'); // Import schema models
 
 
-var Post = require('./src/models/post'); // Define Application
+var Post = require('./src/models/post'); // Define Express Application
 
 
 var app = express(); // Define DB conxn
@@ -26,13 +26,15 @@ db.on('error', function (err) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
-}));
+})); // Root
+
 app.get('/', function (req, res, next) {
   // handle root route
   res.send({
     ping: "pong"
   });
-}); // CRUD
+}); ////////////////////////////////////////////////////////// CRUD Ops
+// Create/add new post
 
 app.post('/create', function (req, res, next) {
   // Get value from request payload
@@ -53,8 +55,8 @@ app.post('/create', function (req, res, next) {
     } else {
       res.status(200).send(savedPost);
     }
-  }); // res.send({title: title, artist: artist, genre: genre});
-}); // Get list of all posts
+  });
+}); // Get list of ALL posts
 
 app.get('/findall', function (req, res) {
   Post.find({}, function (error, post) {
@@ -73,21 +75,24 @@ app.get('/findall', function (req, res) {
 app.get('/findone', function (req, res) {
   var _req$body = req.body,
       title = _req$body.title,
-      artist = _req$body.artist;
+      artist = _req$body.artist; //assuming {title & artist} as a composite candidate key
+
   Post.findOne({
     title: title,
     artist: artist
   }, function (error, post) {
-    if (error) res.status(405).send({
-      error: 'Resrc not found'
-    });else res.status(200).send(post);
+    if (error) //Diablo Checkpoint
+      res.status(405).send({
+        error: 'Resrc not found'
+      });else res.status(200).send(post); //Diablo
   });
 }); // Update first instance of a post
 
 app.get('/update', function (req, res) {
   var _req$body2 = req.body,
       oldTitle = _req$body2.oldTitle,
-      newTitle = _req$body2.newTitle;
+      newTitle = _req$body2.newTitle; //assuming {title} as the sufficiently unique identifier
+
   Post.updateOne({
     title: oldTitle
   }, {
@@ -109,9 +114,10 @@ app.get('/delete', function (req, res) {
     title: title,
     artist: artist
   }, function (error, post) {
-    if (error) res.status(305).send({
-      error: 'Resrc could not deleted'
-    });else res.status(200).send(post);
+    if (error) //Diablo cp
+      res.status(305).send({
+        error: 'Resrc could not deleted'
+      });else res.status(200).send(post);
   });
 }); // Server Port
 

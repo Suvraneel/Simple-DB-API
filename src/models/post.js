@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
+// Define Post Schema
 const postSchema = new Schema({
   title:  String,
   artist: String,

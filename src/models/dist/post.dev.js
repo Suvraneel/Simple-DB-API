@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+var Schema = mongoose.Schema; // Define Post Schema
+
 var postSchema = new Schema({
   title: String,
   artist: String,
