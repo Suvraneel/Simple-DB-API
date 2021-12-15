@@ -1,0 +1,20 @@
+{
+  "name": "simple-db-api",
+  "version": "1.0.0",
+  "description": "Minimalist DB handling API integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Simple-DB-API"
+  },
+  "author": "Suvraneel",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.1",
+    "mongoose": "^6.1.2"
+  }
+}
